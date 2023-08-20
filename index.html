@@ -4,10 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="./css/main.css" />
     <script src="./main.js" defer></script>
 
     <title>Library</title>
   </head>
-  <body></body>
+  <body>
+    <div id="header" class="min-h-[20vh] p-10 box-border flex justify-between">
+      <p class="text-xl font-bold">Library</p>
+      <ul>
+        <li>Books in Library: 0</li>
+        <li>Read: 0</li>
+        <li>Want to Read: 0</li>
+        <li>Unread: 0</li>
+      </ul>
+      <div class="flex flex-col justify-between">
+        <span
+          class="text-3xl font-medium material-symbols-rounded md:cursor-pointer md:hover:scale-110 md:hover:ease-in md:duration-150"
+        >
+          dark_mode
+        </span>
+        <span
+          id="library-add"
+          class="text-2xl font-medium material-symbols-rounded md:cursor-pointer md:hover:scale-110 md:hover:ease-in md:duration-150"
+        >
+          library_add
+        </span>
+      </div>
+    </div>
+
+    <div id="main">
+      <div id="sort" class="px-4 bg-slate-300">Sort:</div>
+      <div
+        id="cards"
+        class="grid grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] gap-5"
+      >
+        <div class="border border-black border-solid">The Hobbit</div>
+        <div class="border border-black border-solid">The Hobbit</div>
+        <div class="border border-black border-solid">The Hobbit</div>
+        <div class="border border-black border-solid">The Hobbit</div>
+      </div>
+    </div>
+  </body>
 </html>

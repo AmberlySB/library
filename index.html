@@ -14,35 +14,39 @@
     <title>Library</title>
   </head>
   <body>
-    <div id="header" class="min-h-[20vh] p-10 box-border flex justify-between">
-      <p class="text-xl font-bold">Library</p>
-      <ul>
-        <li>Books in Library: 0</li>
-        <li>Read: 0</li>
-        <li>Want to Read: 0</li>
-        <li>Unread: 0</li>
-      </ul>
-      <div class="flex flex-col justify-between">
-        <span
-          class="text-3xl font-medium material-symbols-rounded md:cursor-pointer md:hover:scale-110 md:hover:ease-in md:duration-150"
-        >
-          dark_mode
-        </span>
-        <span
-          id="library-add"
-          class="text-2xl font-medium material-symbols-rounded md:cursor-pointer md:hover:scale-110 md:hover:ease-in md:duration-150"
-        >
-          library_add
-        </span>
-      </div>
-    </div>
-
-    <div id="main">
-      <div id="sort" class="px-4 bg-slate-300">Sort:</div>
+    <div class="mx-auto xl:max-w-7xl">
       <div
-        id="cards"
-        class="grid grid-cols-[repeat(auto-fit,_minmax(265px,_1fr))] gap-5 p-10"
-      ></div>
+        id="header"
+        class="min-h-[20vh] p-10 box-border flex justify-between"
+      >
+        <p class="text-xl font-bold">Library</p>
+        <ul>
+          <li>Books in Library: 0</li>
+          <li>Read: 0</li>
+          <li>Want to Read: 0</li>
+          <li>Unread: 0</li>
+        </ul>
+        <div class="flex flex-col justify-between">
+          <span
+            class="text-3xl font-medium material-symbols-rounded md:cursor-pointer md:hover:scale-110 md:hover:ease-in md:duration-150"
+          >
+            dark_mode
+          </span>
+          <span
+            id="library-add"
+            class="text-2xl font-medium material-symbols-rounded md:cursor-pointer md:hover:scale-110 md:hover:ease-in md:duration-150"
+          >
+            library_add
+          </span>
+        </div>
+      </div>
+      <div id="main" class="box-border">
+        <div id="sort" class="px-4 bg-slate-300">Sort:</div>
+        <div
+          id="cards"
+          class="grid grid-cols-[repeat(12,_1fr)] gap-10 box-border p-10"
+        ></div>
+      </div>
     </div>
   </body>
 </html>

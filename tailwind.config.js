@@ -2,7 +2,11 @@
 module.exports = {
   content: ['./*.{html,js}'],
   theme: {
-    extend: {},
+    extend: {
+      gridColumn: {
+        'span-16': 'span 16 / span 16',
+      },
+    },
   },
   plugins: [],
 };

@@ -20,9 +20,33 @@ const book2 = new Book(
   'Robert Jordan',
   'October 17, 2001'
 );
+const book3 = new Book(
+  'The Eye of the World',
+  'Robert Jordan',
+  'October 17, 2001'
+);
+const book4 = new Book(
+  'The Eye of the World',
+  'Robert Jordan',
+  'October 17, 2001'
+);
+const book5 = new Book(
+  'The Eye of the World',
+  'Robert Jordan',
+  'October 17, 2001'
+);
+const book6 = new Book(
+  'The Eye of the World',
+  'Robert Jordan',
+  'October 17, 2001'
+);
 
 addBookToLibrary(book1);
 addBookToLibrary(book2);
+addBookToLibrary(book3);
+addBookToLibrary(book4);
+addBookToLibrary(book5);
+addBookToLibrary(book6);
 
 function displayLibrary() {
   createCard();
@@ -57,11 +81,17 @@ function createCard() {
   bookCards.forEach((card, index) => {
     card.classList.add(
       'bg-gradient-to-tr',
-      'from-violet-600',
+      'from-violet-500',
       'to-slate-900',
       'text-white',
       'p-4',
-      'rounded-lg'
+      'rounded-lg',
+      'box-border',
+      'shadow-custom',
+      'col-span-12',
+      'md:col-span-6',
+      'lg:col-span-4',
+      'xl:col-span-3'
     );
     card.setAttribute('id', `div-${[index]}`);
   });

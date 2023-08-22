@@ -82,13 +82,13 @@ function createCard() {
     card.classList.add(
       'bg-gradient-to-tr',
       'from-violet-500',
-      'to-slate-900',
+      'to-black',
       'text-white',
       'p-4',
       'rounded-lg',
       'box-border',
       'shadow-custom',
-      'col-span-12',
+      'col-span-8',
       'md:col-span-6',
       'lg:col-span-4',
       'xl:col-span-3'

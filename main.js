@@ -1,52 +1,106 @@
 const cards = document.getElementById('cards');
-
+const addBook = document.getElementById('library-add');
+const closeModal = document.getElementById('close-modal');
+const dialog = document.getElementById('dialog');
 const library = [];
 
-function Book(title, author, dateFinished) {
+let readCount = 0;
+
+addBook.addEventListener('click', () => {
+  dialog.showModal();
+  dialog.classList.remove('hidden');
+  document.querySelector('body').classList.add('blur-sm');
+});
+closeModal.addEventListener('click', () => {
+  dialog.close();
+  dialog.classList.add('hidden');
+  document.querySelector('body').classList.remove('blur-sm');
+});
+
+// function showDialog() {
+//   dialog.showModal();
+//   document.querySelector('body').classList.add('blur-sm');
+// }
+
+// function closeDialog() {
+
+// }
+
+function Book(title, author, datePublished, dateFinished, readStatus) {
   {
     this.title = title;
     this.author = author;
+    this.datePublished = datePublished;
     this.dateFinished = dateFinished;
+    this.readStatus = readStatus;
   }
 }
 
-function addBookToLibrary(book) {
-  library.push(book);
+function addBookTo() {
+  const newBook = new Book(
+    title.value,
+    author.value,
+    datePublished.value,
+    dateFinished.value,
+    readStatus.value
+  );
+  library.push(newBook);
+  displayLibrary();
 }
 
-const book1 = new Book('The Hobbit', 'J.R.R. Tolkien', 'June 10, 2002');
-const book2 = new Book(
-  'The Eye of the World',
-  'Robert Jordan',
-  'October 17, 2001'
-);
-const book3 = new Book(
-  'The Eye of the World',
-  'Robert Jordan',
-  'October 17, 2001'
-);
-const book4 = new Book(
-  'The Eye of the World',
-  'Robert Jordan',
-  'October 17, 2001'
-);
-const book5 = new Book(
-  'The Eye of the World',
-  'Robert Jordan',
-  'October 17, 2001'
-);
-const book6 = new Book(
-  'The Eye of the World',
-  'Robert Jordan',
-  'October 17, 2001'
-);
+// function addBookToLibrary(book) {
+//   library.push(book);
+// }
 
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-addBookToLibrary(book4);
-addBookToLibrary(book5);
-addBookToLibrary(book6);
+// const book1 = new Book(
+//   'The Hobbit',
+//   'J.R.R. Tolkien',
+//   'September 32, 1937',
+//   'June 10, 2002',
+//   true
+// );
+// const book2 = new Book(
+//   'The Eye of the World',
+//   'Robert Jordan',
+//   'January 15, 1990',
+//   'October 17, 2001',
+//   true
+// );
+// const book3 = new Book(
+//   'The Eye of the World',
+//   'Robert Jordan',
+//   'January 15, 1990',
+//   'October 17, 2001',
+//   false
+// );
+// const book4 = new Book(
+//   'The Eye of the World',
+//   'Robert Jordan',
+//   'January 15, 1990',
+//   'October 17, 2001',
+//   false
+// );
+// const book5 = new Book(
+//   'The Eye of the World',
+//   'Robert Jordan',
+//   'January 15, 1990',
+//   'October 17, 2001',
+//   true
+// );
+// const book6 = new Book(
+//   'The Eye of the World',
+//   'Robert Jordan',
+//   'January 15, 1990',
+//   'October 17, 2001',
+//   false
+// );
+
+// addBookToLibrary(book1);
+// addBookToLibrary(book2);
+// addBookToLibrary(book3);
+// addBookToLibrary(book4);
+// addBookToLibrary(book5);
+// addBookToLibrary(book6);
 
 function displayLibrary() {
   createCard();
@@ -61,16 +115,20 @@ function displayLibrary() {
     currentElement
       .appendChild(document.createElement('li'))
       .appendChild(
+        document.createTextNode('Date Published: ' + book.datePublished)
+      );
+    currentElement
+      .appendChild(document.createElement('li'))
+      .appendChild(
         document.createTextNode('Date Finished: ' + book.dateFinished)
       );
     const inputLabel = document.createElement('label');
     const labelText = document.createTextNode('Mark as Read');
     const inputToggle = document.createElement('input');
     inputLabel.appendChild(labelText);
-
     inputLabel.setAttribute('for', `toggle-read-${[index]}`);
     inputToggle.setAttribute('type', 'checkbox');
-    inputToggle.setAttribute('role', 'switch');
+    inputToggle.setAttribute('onclick', 'toggleCard()');
     inputToggle.setAttribute('id', `toggle-read-${[index]}`);
     inputLabel.classList.add(
       'self-end',
@@ -107,14 +165,19 @@ function displayLibrary() {
     );
     currentElement.appendChild(inputToggle);
     currentElement.appendChild(inputLabel);
+    if (book.readStatus === true) {
+      document.getElementById(`toggle-read-${[index]}`).checked = true;
+      console.log(index);
+    }
   });
+  toggleCard();
   const listItems = document.querySelectorAll(
     '#cards > div > ul > li:nth-child(1)'
   );
   listItems.forEach((element) => element.classList.add('font-bold'));
 }
 
-displayLibrary();
+// displayLibrary();
 
 function createCard() {
   for (let i = 0; i < library.length; i++) {
@@ -125,7 +188,7 @@ function createCard() {
   bookCards.forEach((card, index) => {
     card.classList.add(
       'bg-gradient-to-tr',
-      'from-violet-500',
+      'from-slate-300',
       'to-black',
       'text-white',
       'p-4',
@@ -137,11 +200,33 @@ function createCard() {
       'lg:col-span-4',
       'xl:col-span-3'
     );
-    card.setAttribute('id', `div-${[index]}`);
+    card.setAttribute('id', `book-${[index]}`);
   });
   const bookList = document.querySelectorAll('#cards > div > ul');
   bookList.forEach((list, index) => {
     list.classList.add('flex', 'flex-col');
     list.setAttribute('id', `list-${[index]}`);
+  });
+}
+
+function toggleCard() {
+  const booksRead = document.getElementById('books-read');
+  const booksUnread = document.getElementById('books-unread');
+  library.forEach((book, index) => {
+    const currentElement = document.getElementById(`toggle-read-${[index]}`);
+    const currentBook = document.getElementById(`book-${[index]}`);
+    if (currentElement.checked) {
+      currentBook.classList.remove('from-slate-300');
+      currentBook.classList.add('from-violet-700');
+      console.log('checked: ', readCount);
+      readCount = readCount + 1;
+      booksRead.textContent = readCount;
+    } else {
+      currentBook.classList.remove('from-violet-700');
+      currentBook.classList.add('from-slate-300');
+      console.log('unchecked: ', readCount);
+      readCount = readCount - 1;
+      booksRead.textContent = readCount;
+    }
   });
 }

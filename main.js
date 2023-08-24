@@ -2,9 +2,14 @@ const cards = document.getElementById('cards');
 const addBook = document.getElementById('library-add');
 const closeModal = document.getElementById('close-modal');
 const dialog = document.getElementById('dialog');
+const booksTotal = document.getElementById('books-total');
+const booksRead = document.getElementById('books-read');
+const booksUnread = document.getElementById('books-unread');
 const library = [];
 
+let bookCount = 0;
 let readCount = 0;
+let unreadCount = 0;
 
 addBook.addEventListener('click', () => {
   dialog.showModal();
@@ -17,25 +22,55 @@ closeModal.addEventListener('click', () => {
   document.querySelector('body').classList.remove('blur-sm');
 });
 
-function Book(title, author, datePublished, dateFinished, readStatus) {
+function Book(
+  title,
+  authorFirst,
+  authorMiddle,
+  authorLast,
+  pages,
+  datePublished,
+  readStatus
+) {
   {
     this.title = title;
-    this.author = author;
+    this.authorFirst = authorFirst;
+    this.authorMiddle = authorMiddle;
+    this.authorLast = authorLast;
+    this.pages = pages;
     this.datePublished = datePublished;
-    this.dateFinished = dateFinished;
     this.readStatus = readStatus;
+    this.info = function () {
+      const infoStr =
+        this.title +
+        ' by ' +
+        this.authorFirst +
+        ' ' +
+        this.authorMiddle +
+        ' ' +
+        this.authorLast +
+        ' is ' +
+        this.pages +
+        ' pages long, published on ' +
+        this.datePublished;
+      return infoStr;
+    };
   }
 }
 
 function addBookToLibrary() {
   const newBook = new Book(
     title.value,
-    author.value,
+    authorFirst.value,
+    authorMiddle.value,
+    authorLast.value,
+    pages.value,
     datePublished.value,
-    dateFinished.value,
     readStatus.value
   );
+  console.log(newBook.info());
   library.push(newBook);
+  bookCount = library.length;
+  booksTotal.textContent = bookCount;
   createCard();
   displayLibrary();
 }
@@ -52,16 +87,23 @@ function displayLibrary() {
         .appendChild(document.createTextNode(book.title));
       currentElement
         .appendChild(document.createElement('li'))
-        .appendChild(document.createTextNode('By: ' + book.author));
+        .appendChild(
+          document.createTextNode(
+            'By: ' +
+              book.authorFirst +
+              ' ' +
+              book.authorMiddle +
+              ' ' +
+              book.authorLast
+          )
+        );
+      currentElement
+        .appendChild(document.createElement('li'))
+        .appendChild(document.createTextNode('Pages: ' + book.pages));
       currentElement
         .appendChild(document.createElement('li'))
         .appendChild(
           document.createTextNode('Date Published: ' + book.datePublished)
-        );
-      currentElement
-        .appendChild(document.createElement('li'))
-        .appendChild(
-          document.createTextNode('Date Finished: ' + book.dateFinished)
         );
       book.display = true;
       const inputLabel = document.createElement('label');
@@ -107,9 +149,8 @@ function displayLibrary() {
       );
       currentElement.appendChild(inputToggle);
       currentElement.appendChild(inputLabel);
-      if (book.readStatus === true) {
+      if (book.readStatus === 'true') {
         document.getElementById(`toggle-read-${[index]}`).checked = true;
-        console.log(index);
       }
     }
   });
@@ -147,28 +188,120 @@ function createId() {
     card.setAttribute('id', `book-${[index]}`)
   );
   const bookList = document.querySelectorAll('#cards > div > ul');
-  console.log(bookList);
   bookList.forEach((list, index) => list.setAttribute('id', `list-${[index]}`));
 }
 
 function toggleCard() {
-  const booksRead = document.getElementById('books-read');
-  const booksUnread = document.getElementById('books-unread');
+  const checkedCount = [];
   library.forEach((book, index) => {
     const currentElement = document.getElementById(`toggle-read-${[index]}`);
     const currentBook = document.getElementById(`book-${[index]}`);
     if (currentElement.checked) {
+      checkedCount.push(currentElement);
       currentBook.classList.remove('from-slate-300');
       currentBook.classList.add('from-violet-700');
-      console.log('checked: ', readCount);
-      readCount = readCount + 1;
-      booksRead.textContent = readCount;
     } else {
       currentBook.classList.remove('from-violet-700');
       currentBook.classList.add('from-slate-300');
-      console.log('unchecked: ', readCount);
-      readCount = readCount - 1;
-      booksRead.textContent = readCount;
     }
   });
+  readCount = checkedCount.length;
+  booksRead.textContent = readCount;
+  unreadCount = library.length - checkedCount.length;
+  booksUnread.textContent = unreadCount;
+}
+
+function sortBooks(value) {
+  if (value === 'title') {
+    library.sort(function (a, b) {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
+    library.forEach((book) => {
+      book.display = false;
+    });
+    const divReset = document.querySelectorAll('#cards > div');
+    divReset.forEach((div) => {
+      div.remove();
+      createCard();
+    });
+  } else if (value === 'authorFirst') {
+    library.sort(function (a, b) {
+      if (a.authorFirst < b.authorFirst) {
+        return -1;
+      }
+      if (a.authorFirst > b.authorFirst) {
+        return 1;
+      }
+      return 0;
+    });
+    library.forEach((book) => {
+      book.display = false;
+    });
+    const divReset = document.querySelectorAll('#cards > div');
+    divReset.forEach((div) => {
+      div.remove();
+      createCard();
+    });
+  } else if (value === 'authorLast') {
+    library.sort(function (a, b) {
+      if (a.authorLast < b.authorLast) {
+        return -1;
+      }
+      if (a.authorLast > b.authorLast) {
+        return 1;
+      }
+      return 0;
+    });
+    library.forEach((book) => {
+      book.display = false;
+    });
+    const divReset = document.querySelectorAll('#cards > div');
+    divReset.forEach((div) => {
+      div.remove();
+      createCard();
+    });
+  } else if (value === 'pages') {
+    library.sort(function (a, b) {
+      if (a.pages < b.pages) {
+        return -1;
+      }
+      if (a.pages > b.pages) {
+        return 1;
+      }
+      return 0;
+    });
+    library.forEach((book) => {
+      book.display = false;
+    });
+    const divReset = document.querySelectorAll('#cards > div');
+    divReset.forEach((div) => {
+      div.remove();
+      createCard();
+    });
+  } else if (value === 'datePublished') {
+    library.sort(function (a, b) {
+      if (a.datePublished < b.datePublished) {
+        return -1;
+      }
+      if (a.datePublished > b.datePublished) {
+        return 1;
+      }
+      return 0;
+    });
+    library.forEach((book) => {
+      book.display = false;
+    });
+    const divReset = document.querySelectorAll('#cards > div');
+    divReset.forEach((div) => {
+      div.remove();
+      createCard();
+    });
+  }
+  displayLibrary();
 }

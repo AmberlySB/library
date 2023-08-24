@@ -591,6 +591,10 @@ video {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
 }
@@ -618,6 +622,11 @@ video {
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.min-w-min {
+  min-width: -moz-min-content;
+  min-width: min-content;
 }
 
 .cursor-pointer {

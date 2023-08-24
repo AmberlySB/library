@@ -5,6 +5,7 @@ const dialog = document.getElementById('dialog');
 const booksTotal = document.getElementById('books-total');
 const booksRead = document.getElementById('books-read');
 const booksUnread = document.getElementById('books-unread');
+const bookForm = document.getElementById('book-form');
 const library = [];
 
 let bookCount = 0;
@@ -16,11 +17,14 @@ addBook.addEventListener('click', () => {
   dialog.classList.remove('hidden');
   document.querySelector('body').classList.add('blur-sm');
 });
-closeModal.addEventListener('click', () => {
+closeModal.addEventListener('click', closeDialog);
+
+function closeDialog() {
   dialog.close();
   dialog.classList.add('hidden');
   document.querySelector('body').classList.remove('blur-sm');
-});
+  document.getElementById('book-form').reset();
+}
 
 function Book(
   title,
@@ -71,6 +75,7 @@ function addBookToLibrary() {
   library.push(newBook);
   bookCount = library.length;
   booksTotal.textContent = bookCount;
+  closeDialog();
   createCard();
   displayLibrary();
 }

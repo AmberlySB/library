@@ -839,6 +839,21 @@ input[type='checkbox']:focus + label::after {
   left: 6.82em;
 }
 
+.before\:left-\[6\.85em\]::before {
+  content: var(--tw-content);
+  left: 6.85em;
+}
+
+.before\:left-\[6\.9em\]::before {
+  content: var(--tw-content);
+  left: 6.9em;
+}
+
+.before\:left-\[6\.86em\]::before {
+  content: var(--tw-content);
+  left: 6.86em;
+}
+
 .before\:h-\[\.8em\]::before {
   content: var(--tw-content);
   height: .8em;

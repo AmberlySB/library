@@ -17,3 +17,7 @@ input[type="checkbox"]:checked + label::after {
 input[type="checkbox"]:focus + label::after {
   border: 2px solid rgb(5 150 105);
 }
+
+.delete::after {
+  content: "\2715";
+}

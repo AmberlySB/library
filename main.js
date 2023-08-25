@@ -30,14 +30,18 @@ function closeDialog() {
 
 darkMode.addEventListener("click", () => {
   document.getElementById("header").classList.add("bg-slate-800");
+  document.getElementById("header").classList.remove("bg-white");
   document.querySelector("body").classList.add("bg-slate-800", "text-white");
+  dialog.classList.add("bg-slate-800", "text-white", "border-white");
   darkMode.classList.add("hidden");
   lightMode.classList.remove("hidden");
 });
 
 lightMode.addEventListener("click", () => {
+  document.getElementById("header").classList.add("bg-white");
   document.getElementById("header").classList.remove("bg-slate-800");
   document.querySelector("body").classList.remove("bg-slate-800", "text-white");
+  dialog.classList.remove("bg-slate-800", "text-white", "border-white");
   darkMode.classList.remove("hidden");
   lightMode.classList.add("hidden");
 });
@@ -89,14 +93,14 @@ function addBookToLibrary() {
   );
   console.log(newBook.info());
   library.push(newBook);
-  bookCount = library.length;
-  booksTotal.textContent = bookCount;
   closeDialog();
   createCard();
   displayLibrary();
 }
 
 function displayLibrary() {
+  bookCount = library.length;
+  booksTotal.textContent = bookCount;
   createId();
   library.forEach((book, index) => {
     if (book.display) {
@@ -176,7 +180,7 @@ function displayLibrary() {
   });
   toggleCard();
   const listItems = document.querySelectorAll(
-    "#cards > div > ul > li:nth-child(1)",
+    "#cards > div > ul > li:nth-child(2)",
   );
   listItems.forEach((element) => element.classList.add("font-bold"));
 }
@@ -199,7 +203,10 @@ function createCard() {
   );
   const newList = document.createElement("ul");
   newList.classList.add("flex", "flex-col");
-  cards.appendChild(newDiv).appendChild(newList);
+  const newSpan = document.createElement("span");
+  newSpan.classList.add("text-white", "delete", "cursor-pointer", "self-end");
+  newSpan.setAttribute("onclick", "deleteBook(this.id)");
+  cards.appendChild(newDiv).appendChild(newList).appendChild(newSpan);
 }
 
 function createId() {
@@ -209,6 +216,10 @@ function createId() {
   );
   const bookList = document.querySelectorAll("#cards > div > ul");
   bookList.forEach((list, index) => list.setAttribute("id", `list-${[index]}`));
+  const deleteCard = document.querySelectorAll("#cards > div > ul > span");
+  deleteCard.forEach((card, index) =>
+    card.setAttribute("id", `delete-${[index]}`),
+  );
 }
 
 function toggleCard() {
@@ -247,11 +258,7 @@ function sortBooks(value) {
     library.forEach((book) => {
       book.display = false;
     });
-    const divReset = document.querySelectorAll("#cards > div");
-    divReset.forEach((div) => {
-      div.remove();
-      createCard();
-    });
+    libraryReset();
   } else if (value === "authorFirst") {
     library.sort(function (a, b) {
       if (a.authorFirst < b.authorFirst) {
@@ -265,11 +272,7 @@ function sortBooks(value) {
     library.forEach((book) => {
       book.display = false;
     });
-    const divReset = document.querySelectorAll("#cards > div");
-    divReset.forEach((div) => {
-      div.remove();
-      createCard();
-    });
+    libraryReset();
   } else if (value === "authorLast") {
     library.sort(function (a, b) {
       if (a.authorLast < b.authorLast) {
@@ -283,11 +286,7 @@ function sortBooks(value) {
     library.forEach((book) => {
       book.display = false;
     });
-    const divReset = document.querySelectorAll("#cards > div");
-    divReset.forEach((div) => {
-      div.remove();
-      createCard();
-    });
+    libraryReset();
   } else if (value === "pages") {
     library.sort(function (a, b) {
       if (a.pages < b.pages) {
@@ -301,11 +300,7 @@ function sortBooks(value) {
     library.forEach((book) => {
       book.display = false;
     });
-    const divReset = document.querySelectorAll("#cards > div");
-    divReset.forEach((div) => {
-      div.remove();
-      createCard();
-    });
+    libraryReset();
   } else if (value === "datePublished") {
     library.sort(function (a, b) {
       if (a.datePublished < b.datePublished) {
@@ -319,13 +314,18 @@ function sortBooks(value) {
     library.forEach((book) => {
       book.display = false;
     });
-    const divReset = document.querySelectorAll("#cards > div");
-    divReset.forEach((div) => {
-      div.remove();
-      createCard();
-    });
+    libraryReset();
   }
   displayLibrary();
+}
+
+function libraryReset() {
+  const divReset = document.querySelectorAll("#cards > div");
+  console.log(document.querySelectorAll("#cards > div"));
+  divReset.forEach((div) => {
+    div.remove();
+    createCard();
+  });
 }
 
 function validateForm() {
@@ -336,38 +336,50 @@ function validateForm() {
   const readStatus = document.getElementById("readStatus");
 
   if (title.value.length < 1) {
-    title.classList.add("border-red-600", "focus:outline-red-600");
+    title.classList.add("border-red-600");
     return;
   } else {
-    title.classList.remove("border-red-600", "focus:outline-red-600");
+    title.classList.remove("border-red-600");
   }
 
   if (authorFirst.value.length < 1) {
-    authorFirst.classList.add("border-red-600", "focus:outline-red-600");
+    authorFirst.classList.add("border-red-600");
     return;
   } else {
-    authorFirst.classList.remove("border-red-600", "focus:outline-red-600");
+    authorFirst.classList.remove("border-red-600");
   }
 
   if (pages.value.length < 1 || isNaN(pages.value)) {
-    pages.classList.add("border-red-600", "focus:outline-red-600");
+    pages.classList.add("border-red-600");
     return;
   } else {
-    pages.classList.remove("border-red-600", "focus:outline-red-600");
+    pages.classList.remove("border-red-600");
   }
 
   if (datePublished.value.length < 1) {
-    datePublished.classList.add("border-red-600", "focus:outline-red-600");
+    datePublished.classList.add("border-red-600");
     return;
   } else {
-    datePublished.classList.remove("border-red-600", "focus:outline-red-600");
+    datePublished.classList.remove("border-red-600");
   }
 
   if (readStatus.value != "true" && readStatus.value != "false") {
-    readStatus.classList.add("border-red-600", "focus:outline-red-600");
+    readStatus.classList.add("border-red-600");
     return;
   } else {
-    readStatus.classList.remove("border-red-600", "focus:outline-red-600");
+    readStatus.classList.remove("border-red-600");
   }
   addBookToLibrary();
+}
+
+function deleteBook(clickedID) {
+  const clickedArr = clickedID.split("-");
+  library.splice(clickedArr[1], 1);
+  document.getElementById(`book-${clickedArr[1]}`).remove();
+  library.forEach((book) => {
+    book.display = false;
+  });
+  libraryReset();
+  console.table(library);
+  displayLibrary();
 }

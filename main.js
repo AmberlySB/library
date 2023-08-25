@@ -222,9 +222,11 @@ function toggleCard() {
       checkedCount.push(currentElement);
       currentBook.classList.remove("from-slate-300");
       currentBook.classList.add("from-violet-700");
+      book.readStatus = "true";
     } else {
       currentBook.classList.remove("from-violet-700");
       currentBook.classList.add("from-slate-300");
+      book.readStatus = "false";
     }
   });
   readCount = checkedCount.length;

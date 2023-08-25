@@ -30,16 +30,14 @@ function closeDialog() {
 
 darkMode.addEventListener("click", () => {
   document.getElementById("header").classList.add("bg-slate-800");
-  document.getElementById("body").classList.add("bg-slate-800", "text-white");
+  document.querySelector("body").classList.add("bg-slate-800", "text-white");
   darkMode.classList.add("hidden");
   lightMode.classList.remove("hidden");
 });
 
 lightMode.addEventListener("click", () => {
   document.getElementById("header").classList.remove("bg-slate-800");
-  document
-    .getElementById("body")
-    .classList.remove("bg-slate-800", "text-white");
+  document.querySelector("body").classList.remove("bg-slate-800", "text-white");
   darkMode.classList.remove("hidden");
   lightMode.classList.add("hidden");
 });
@@ -328,4 +326,48 @@ function sortBooks(value) {
     });
   }
   displayLibrary();
+}
+
+function validateForm() {
+  const title = document.getElementById("title");
+  const authorFirst = document.getElementById("authorFirst");
+  const pages = document.getElementById("pages");
+  const datePublished = document.getElementById("datePublished");
+  const readStatus = document.getElementById("readStatus");
+
+  if (title.value.length < 1) {
+    title.classList.add("border-red-600", "focus:outline-red-600");
+    return;
+  } else {
+    title.classList.remove("border-red-600", "focus:outline-red-600");
+  }
+
+  if (authorFirst.value.length < 1) {
+    authorFirst.classList.add("border-red-600", "focus:outline-red-600");
+    return;
+  } else {
+    authorFirst.classList.remove("border-red-600", "focus:outline-red-600");
+  }
+
+  if (pages.value.length < 1 || isNaN(pages.value)) {
+    pages.classList.add("border-red-600", "focus:outline-red-600");
+    return;
+  } else {
+    pages.classList.remove("border-red-600", "focus:outline-red-600");
+  }
+
+  if (datePublished.value.length < 1) {
+    datePublished.classList.add("border-red-600", "focus:outline-red-600");
+    return;
+  } else {
+    datePublished.classList.remove("border-red-600", "focus:outline-red-600");
+  }
+
+  if (readStatus.value != "true" && readStatus.value != "false") {
+    readStatus.classList.add("border-red-600", "focus:outline-red-600");
+    return;
+  } else {
+    readStatus.classList.remove("border-red-600", "focus:outline-red-600");
+  }
+  addBookToLibrary();
 }

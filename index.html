@@ -13,7 +13,7 @@
 
     <title>Library</title>
   </head>
-  <body id="body">
+  <body>
     <div class="mx-auto xl:max-w-7xl">
       <div
         id="header"
@@ -58,7 +58,7 @@
           <p>
             Sort:
             <select name="sort" id="sort" onchange="sortBooks(value)">
-              <option value="">-- Sort by --</option>
+              <option value="">--Sort by--</option>
               <option value="title">Title</option>
               <option value="authorFirst">Author First</option>
               <option value="authorLast">Author Last</option>
@@ -120,25 +120,23 @@
               class="ml-2 rounded border border-solid border-black px-1 focus:outline-violet-700"
               required
           /></label>
-          <label for="authorMiddle" aria-required="true" class="font-semibold"
-            >* Author Middle:
+          <label for="authorMiddle" class="font-semibold">
+            Author Middle:
             <input
               type="text"
               id="authorMiddle"
               name="authorMiddle"
               placeholder="Author Middle Name"
               class="ml-2 rounded border border-solid border-black px-1 focus:outline-violet-700"
-              required
           /></label>
-          <label for="authorLast" aria-required="true" class="font-semibold"
-            >* Author Last:
+          <label for="authorLast" class="font-semibold">
+            Author Last:
             <input
               type="text"
               id="authorLast"
               name="authorLast"
               placeholder="Author Last Name"
               class="ml-2 rounded border border-solid border-black px-1 focus:outline-violet-700"
-              required
           /></label>
           <label for="pages" aria-required="true" class="font-semibold"
             >* Pages:
@@ -166,6 +164,7 @@
               id="readStatus"
               name="readStatus"
               class="ml-2 rounded border border-solid border-black px-1 focus:outline-violet-700"
+              required
             >
               <option value="">-- Have you read this book? --</option>
               <option value="true">Yes</option>
@@ -173,9 +172,10 @@
             </select>
           </label>
           <button
+            id="add-book-button"
             type="button"
             class="w-fit self-center rounded-2xl border border-solid border-black bg-gradient-to-tr from-violet-700 to-black px-4 py-1 text-white shadow-xl"
-            onclick="addBookToLibrary()"
+            onclick="validateForm()"
           >
             Add Book
           </button>

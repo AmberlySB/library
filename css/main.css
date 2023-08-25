@@ -687,6 +687,11 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.border-red-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(220 38 38 / var(--tw-border-opacity));
+}
+
 .bg-slate-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
@@ -715,6 +720,11 @@ video {
 .bg-slate-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-tr {
@@ -954,6 +964,10 @@ input[type="checkbox"]:focus + label::after {
 
 .focus\:outline-violet-700:focus {
   outline-color: #6d28d9;
+}
+
+.focus\:outline-red-600:focus {
+  outline-color: #dc2626;
 }
 
 @media (min-width: 640px) {

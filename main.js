@@ -140,7 +140,8 @@ function displayLibrary() {
         "before:rounded-[1em]",
         "before:bg-white",
         "before:absolute",
-        "before:left-[6.86em]",
+        "before:left-[7em]",
+        "sm:before:left-[6.85em]",
         "before:ease-in-out",
         "before:duration-200",
       );

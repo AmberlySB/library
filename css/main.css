@@ -854,6 +854,11 @@ input[type='checkbox']:focus + label::after {
   left: 6.86em;
 }
 
+.before\:left-\[7em\]::before {
+  content: var(--tw-content);
+  left: 7em;
+}
+
 .before\:h-\[\.8em\]::before {
   content: var(--tw-content);
   height: .8em;
@@ -947,8 +952,29 @@ input[type='checkbox']:focus + label::after {
   content: var(--tw-content);
 }
 
+.hover\:scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hover\:duration-150:hover {
+  transition-duration: 150ms;
+}
+
+.hover\:ease-in-out:hover {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .focus\:outline-violet-700:focus {
   outline-color: #6d28d9;
+}
+
+@media (min-width: 640px) {
+  .sm\:before\:left-\[6\.85em\]::before {
+    content: var(--tw-content);
+    left: 6.85em;
+  }
 }
 
 @media (min-width: 768px) {
@@ -976,6 +1002,11 @@ input[type='checkbox']:focus + label::after {
 
   .md\:duration-150 {
     transition-duration: 150ms;
+  }
+
+  .md\:before\:left-\[6\.85em\]::before {
+    content: var(--tw-content);
+    left: 6.85em;
   }
 
   .md\:hover\:scale-110:hover {

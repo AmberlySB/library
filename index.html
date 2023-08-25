@@ -13,7 +13,7 @@
 
     <title>Library</title>
   </head>
-  <body>
+  <body id="body">
     <div class="mx-auto xl:max-w-7xl">
       <div
         id="header"
@@ -31,9 +31,16 @@
             </ul>
             <div class="flex flex-col justify-between">
               <span
+                id="dark-mode"
                 class="material-symbols-rounded cursor-pointer text-2xl font-medium hover:scale-110 hover:duration-150 hover:ease-in-out md:text-3xl"
               >
                 dark_mode
+              </span>
+              <span
+                id="light-mode"
+                class="material-symbols-rounded hidden cursor-pointer text-2xl font-medium hover:scale-110 hover:duration-150 hover:ease-in-out md:text-3xl"
+              >
+                light_mode
               </span>
               <span
                 id="library-add"
@@ -46,7 +53,7 @@
         </div>
         <div
           id="utility-bar"
-          class="mt-4 flex items-center justify-between bg-slate-300 px-4 py-2"
+          class="mt-4 flex items-center justify-between bg-slate-300 px-4 py-2 text-black"
         >
           <p>
             Sort:

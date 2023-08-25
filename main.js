@@ -1,5 +1,7 @@
 const cards = document.getElementById("cards");
 const addBook = document.getElementById("library-add");
+const darkMode = document.getElementById("dark-mode");
+const lightMode = document.getElementById("light-mode");
 const closeModal = document.getElementById("close-modal");
 const dialog = document.getElementById("dialog");
 const booksTotal = document.getElementById("books-total");
@@ -25,6 +27,22 @@ function closeDialog() {
   document.querySelector("body").classList.remove("blur-sm");
   document.getElementById("book-form").reset();
 }
+
+darkMode.addEventListener("click", () => {
+  document.getElementById("header").classList.add("bg-slate-800");
+  document.getElementById("body").classList.add("bg-slate-800", "text-white");
+  darkMode.classList.add("hidden");
+  lightMode.classList.remove("hidden");
+});
+
+lightMode.addEventListener("click", () => {
+  document.getElementById("header").classList.remove("bg-slate-800");
+  document
+    .getElementById("body")
+    .classList.remove("bg-slate-800", "text-white");
+  darkMode.classList.remove("hidden");
+  lightMode.classList.add("hidden");
+});
 
 function Book(
   title,
